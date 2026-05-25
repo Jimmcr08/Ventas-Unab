@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Agregar producto</title>
+    <style>
+        body{
+            font-family: Arial;
+            background: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .caja{
+            background: white;
+            padding: 40px;
+            width: 400px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 15px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        h2{
+            color: #003366;
+        }
+        input, textarea{
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        textarea{
+            height: 100px;
+            resize: none;
+        }
+        button{
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 8px;
+            background: #004aad;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover{
+            background: #002f6c;
+        }
+        .logo{
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 100px;
+        }
+        a{
+            text-decoration: none;
+        }
+        select{
+    width:100%;
+    padding:14px;
+    border:1px solid #ccc;
+    border-radius:12px;
+    margin-bottom:15px;
+    font-size:15px;
+    background:white;
+    outline:none;
+    transition:0.3s;
+}
+select:focus{
+    border:1px solid #003366;
+    box-shadow:0px 0px 8px rgba(0,51,102,0.2);
+}
+  </style>
+</head>
+<body>
+<img src="{{ url_for('static', filename='unab.png') }}" class="logo">
+<div class="caja">
+<h2>Agregar producto</h2>
+<form method="POST" enctype="multipart/form-data">
+    <input type="text" name="nombre" placeholder="Nombre">
+    <input type="number" name="precio" placeholder="Precio">
+    <select name="categoria">
+        <option disabled selected>Selecciona una Categoria</option>
+        <option value="Tecnologia">Tecnología</option>
+        <option value="Ropa y accesiorios">Ropa y accesorios</option>
+        <option value="Comida y bebidas">Comida y bebidas</option>
+    </select>
+    <textarea name="descripcion" placeholder="Descripción"></textarea>
+    <input type="text" name="telefono" placeholder="Numero de contacto">
+    <input type="file" name="imagen1">
+    <input type="file" name="imagen2">
+    <input type="file" name="imagen3">
+    <input type="file" name="imagen4">
+    <input type="file" name="imagen5">
+    <button>Guardar</button>
+</form>
+<br>
+<a href="/productos">Volver</a>
+</div>
+</body>
+</html>

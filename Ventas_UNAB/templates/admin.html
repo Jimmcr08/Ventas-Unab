@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Panel Admin</title>
+
+    <style>
+
+        body{
+
+            font-family:Arial;
+
+            background:#f4f6f9;
+
+            padding:40px;
+        }
+
+        h1{
+
+            margin-bottom:30px;
+        }
+
+        .producto{
+
+            background:white;
+
+            padding:20px;
+
+            border-radius:15px;
+
+            margin-bottom:20px;
+
+            box-shadow:0px 4px 15px rgba(0,0,0,0.1);
+        }
+
+        img{
+
+            width:200px;
+
+            border-radius:10px;
+
+            margin-bottom:15px;
+}
+         .aprobar{
+
+            background:#00b86b;
+
+            color:white;
+
+            padding:12px 18px;
+
+            border-radius:12px;
+
+            text-decoration:none;
+
+        font-weight:bold;
+}
+
+        .rechazar{
+
+            background:#e53935;
+
+            color:white;
+
+            padding:12px 18px;
+
+            border-radius:12px;
+
+            text-decoration:none;
+
+            font-weight:bold;
+}
+
+        .volver{
+
+            display:inline-block;
+
+            margin-bottom:25px;
+
+            background:#002b5c;
+
+            color:white;
+
+            padding:12px 18px;
+
+            border-radius:10px;
+
+            text-decoration:none;
+}
+
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Productos pendientes</h1>
+
+    <a href="/productos" class="volver">
+
+    Volver al marketplace
+
+</a>
+
+    {% for p in productos %}
+
+    <div class="producto">
+
+        {% if p['imagenes'][0] != "" %}
+
+        <img src="/static/uploads/{{ p['imagenes'][0] }}">
+
+        {% endif %}
+
+        <h2>{{ p['nombre'] }}</h2>
+
+        <p>{{ p['descripcion'] }}</p>
+
+        <h3>${{ p['precio'] }}</h3>
+
+        <p>Usuario: {{ p['usuario'] }}</p>
+
+        <div class="botones">
+
+            <a
+            href="/aprobar/{{ p['nombre'] }}"
+            class="aprobar"
+            >
+
+                Aprobar
+
+            </a>
+
+            <a
+            href="/rechazar/{{ p['nombre'] }}"
+            class="rechazar"
+            >
+
+                Rechazar
+
+            </a>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</body>
+</html>

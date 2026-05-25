@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mis productos</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial,sans-serif;
+        }
+
+        body{
+            background:#f4f6f9;
+        }
+
+        /* NAVBAR */
+
+        .navbar{
+
+            background:#002b5c;
+
+            padding:20px 40px;
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            flex-wrap:wrap;
+
+            gap:20px;
+        }
+
+        .logo{
+
+            display:flex;
+
+            align-items:center;
+
+            gap:15px;
+
+            color:white;
+        }
+
+        .logo-unab{
+
+            width:120px;
+
+            height:120px;
+
+            object-fit:contain;
+        }
+
+        .logo h1{
+
+            font-size:34px;
+        }
+
+        .volver{
+
+            background:white;
+
+            color:#002b5c;
+
+            padding:12px 20px;
+
+            border-radius:12px;
+
+            text-decoration:none;
+
+            font-weight:bold;
+
+            transition:0.3s;
+        }
+
+        .volver:hover{
+
+            background:#dfe8f5;
+        }
+
+        /* TITULO */
+
+        .titulo{
+
+            width:95%;
+
+            margin:35px auto;
+
+            color:#002b5c;
+
+            font-size:30px;
+        }
+
+        /* PRODUCTOS */
+
+        .contenedor{
+
+            width:95%;
+
+            margin:auto;
+
+            display:grid;
+
+            grid-template-columns:
+            repeat(auto-fill,minmax(270px,1fr));
+
+            gap:25px;
+
+            padding-bottom:40px;
+        }
+
+        .producto{
+
+            background:white;
+
+            border-radius:20px;
+
+            overflow:hidden;
+
+            box-shadow:0px 5px 20px rgba(0,0,0,0.08);
+
+            transition:0.3s;
+        }
+
+        .producto:hover{
+
+            transform:translateY(-6px);
+        }
+
+        /* IMAGENES */
+
+        .imagenes-producto{
+
+            display:flex;
+
+            gap:10px;
+
+            overflow-x:auto;
+
+            padding:10px;
+        }
+
+        .imagenes-producto::-webkit-scrollbar{
+
+            height:6px;
+        }
+
+        .imagenes-producto::-webkit-scrollbar-thumb{
+
+            background:#ccc;
+
+            border-radius:10px;
+        }
+
+        .imagen-extra{
+
+            width:180px;
+
+            height:180px;
+
+            object-fit:cover;
+
+            border-radius:12px;
+
+            flex-shrink:0;
+        }
+
+        /* INFO */
+
+        .info{
+
+            padding:20px;
+        }
+
+        .info h3{
+
+            color:#002b5c;
+
+            margin-bottom:10px;
+
+            font-size:24px;
+        }
+
+        .info p{
+
+            color:#555;
+
+            margin-bottom:10px;
+        }
+
+        .precio{
+
+            color:#00b86b;
+
+            font-size:28px;
+
+            font-weight:bold;
+
+            margin-top:15px;
+        }
+
+        /* ESTADO */
+
+        .estado{
+
+            margin-top:15px;
+
+            display:inline-block;
+
+            padding:8px 14px;
+
+            border-radius:10px;
+
+            font-size:14px;
+
+            font-weight:bold;
+        }
+
+        .aprobado{
+
+            background:#d7f7e7;
+
+            color:#00995a;
+        }
+
+        .pendiente{
+
+            background:#fff4d6;
+
+            color:#b88600;
+        }
+
+        /* BOTON */
+
+        .eliminar{
+
+            display:block;
+
+            margin-top:18px;
+
+            background:#e53935;
+
+            color:white;
+
+            text-align:center;
+
+            padding:14px;
+
+            border-radius:12px;
+
+            text-decoration:none;
+
+            font-weight:bold;
+
+            transition:0.3s;
+        }
+
+        .eliminar:hover{
+
+            background:#c62828;
+        }
+
+        /* VACIO */
+
+        .vacio{
+
+            width:90%;
+
+            margin:auto;
+
+            background:white;
+
+            padding:50px;
+
+            border-radius:20px;
+
+            text-align:center;
+
+            color:gray;
+
+            font-size:25px;
+
+            box-shadow:0px 5px 20px rgba(0,0,0,0.08);
+        }
+
+        @media(max-width:700px){
+
+            .navbar{
+
+                justify-content:center;
+
+                text-align:center;
+            }
+
+            .logo{
+
+                flex-direction:column;
+            }
+
+            .logo-unab{
+
+                width:100px;
+
+                height:100px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <div class="navbar">
+
+        <div class="logo">
+
+            <img
+            src="/static/unab.png"
+            class="logo-unab"
+            >
+
+            <h1>Mis productos</h1>
+
+        </div>
+
+        <a href="/productos" class="volver">
+
+            Volver al marketplace
+
+        </a>
+
+    </div>
+
+    <!-- TITULO -->
+
+    <h2 class="titulo">
+
+        Productos publicados por ti
+
+    </h2>
+
+    <!-- SI NO HAY PRODUCTOS -->
+
+    {% if productos|length == 0 %}
+
+    <div class="vacio">
+
+        No tienes productos publicados
+
+    </div>
+
+    {% else %}
+
+    <!-- PRODUCTOS -->
+
+    <div class="contenedor">
+
+        {% for p in productos %}
+
+        <div class="producto">
+
+            <!-- IMAGENES -->
+
+            <div class="imagenes-producto">
+
+                {% for img in p['imagenes'] %}
+
+                    {% if img != "" %}
+
+                    <img
+                        src="/static/uploads/{{ img }}"
+                        class="imagen-extra"
+                    >
+
+                    {% endif %}
+
+                {% endfor %}
+
+            </div>
+
+            <!-- INFO -->
+
+            <div class="info">
+
+                <h3>{{ p['nombre'] }}</h3>
+
+                <p>{{ p['descripcion'] }}</p>
+
+                <div class="precio">
+
+                    ${{ p['precio'] }}
+
+                </div>
+
+                <!-- ESTADO -->
+
+                {% if p['aprobado'] == True %}
+
+                <div class="estado aprobado">
+
+                     Aprobado
+
+                </div>
+
+                {% else %}
+
+                <div class="estado pendiente">
+
+                     Pendiente de aprobación
+
+                </div>
+
+                {% endif %}
+
+                <!-- ELIMINAR -->
+
+                <a
+                href="/eliminar/{{ p['nombre'] }}"
+                class="eliminar"
+                >
+
+                    Eliminar producto
+
+                </a>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+
+</body>
+</html>

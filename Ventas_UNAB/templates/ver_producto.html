@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ producto['nombre'] }}</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial,sans-serif;
+        }
+
+        body{
+            background:#f4f6f9;
+        }
+
+        .contenedor{
+
+            width:90%;
+
+            max-width:1200px;
+
+            margin:40px auto;
+
+            background:white;
+
+            border-radius:25px;
+
+            overflow:hidden;
+
+            box-shadow:0px 5px 25px rgba(0,0,0,0.1);
+
+            display:flex;
+
+            flex-wrap:wrap;
+        }
+
+        /* GALERIA */
+
+        .galeria{
+
+            flex:1;
+
+            min-width:350px;
+
+            background:#f7f7f7;
+
+            padding:30px;
+
+            position:relative;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+        }
+
+        .galeria img{
+
+            width:100%;
+
+            max-width:500px;
+
+            height:450px;
+
+            object-fit:cover;
+
+            border-radius:20px;
+        }
+
+        /* FLECHAS */
+
+        .flecha{
+
+            position:absolute;
+
+            top:50%;
+
+            transform:translateY(-50%);
+
+            background:rgba(0,0,0,0.5);
+
+            color:white;
+
+            border:none;
+
+            width:50px;
+
+            height:50px;
+
+            border-radius:50%;
+
+            font-size:24px;
+
+            cursor:pointer;
+
+            transition:0.3s;
+        }
+
+        .flecha:hover{
+
+            background:#002b5c;
+        }
+
+        .izquierda{
+
+            left:20px;
+        }
+
+        .derecha{
+
+            right:20px;
+        }
+
+        /* INFO */
+
+        .info{
+
+            flex:1;
+
+            min-width:320px;
+
+            padding:40px;
+        }
+
+        .categoria{
+
+            display:inline-block;
+
+            background:#e8eef7;
+
+            color:#002b5c;
+
+            padding:10px 15px;
+
+            border-radius:10px;
+
+            font-weight:bold;
+
+            margin-bottom:20px;
+        }
+
+        .info h1{
+
+            color:#002b5c;
+
+            font-size:42px;
+
+            margin-bottom:20px;
+        }
+
+        .precio{
+
+            color:#00b86b;
+
+            font-size:40px;
+
+            font-weight:bold;
+
+            margin-bottom:25px;
+        }
+
+        .descripcion{
+
+            color:#555;
+
+            line-height:1.7;
+
+            font-size:18px;
+
+            margin-bottom:35px;
+        }
+
+        .botones{
+
+            display:flex;
+
+            gap:15px;
+
+            flex-wrap:wrap;
+        }
+
+        .whatsapp{
+
+            background:#25D366;
+
+            color:white;
+
+            padding:16px 24px;
+
+            border-radius:14px;
+
+            text-decoration:none;
+
+            font-weight:bold;
+
+            transition:0.3s;
+        }
+
+        .whatsapp:hover{
+
+            background:#1ea952;
+        }
+
+        .volver{
+
+            background:#002b5c;
+
+            color:white;
+
+            padding:16px 24px;
+
+            border-radius:14px;
+
+            text-decoration:none;
+
+            font-weight:bold;
+
+            transition:0.3s;
+        }
+
+        .volver:hover{
+
+            background:#00408a;
+        }
+
+        @media(max-width:900px){
+
+            .contenedor{
+
+                flex-direction:column;
+            }
+
+            .galeria img{
+
+                height:350px;
+            }
+
+            .info h1{
+
+                font-size:34px;
+            }
+
+            .precio{
+
+                font-size:32px;
+            }
+        }
+
+            .vendedor{
+
+            margin-bottom:30px;
+
+            color:#555;
+
+            font-size:17px;
+        }
+
+        .vendedor strong{
+
+            color:#002b5c;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="contenedor">
+
+        <!-- GALERIA -->
+
+        <div class="galeria">
+
+            {% set imagenes = [] %}
+
+            {% for img in producto['imagenes'] %}
+
+                {% if img != "" %}
+
+                    {% set _ = imagenes.append(img) %}
+
+                {% endif %}
+
+            {% endfor %}
+
+            <img
+            id="imagenActual"
+            src="/static/uploads/{{ imagenes[0] }}"
+            >
+
+            <button
+            class="flecha izquierda"
+            onclick="anterior()"
+            >
+
+                ❮
+
+            </button>
+
+            <button
+            class="flecha derecha"
+            onclick="siguiente()"
+            >
+
+                ❯
+
+            </button>
+
+        </div>
+
+        <!-- INFO -->
+
+        <div class="info">
+
+            <div class="categoria">
+
+                {{ producto['categoria'] }}
+
+            </div>
+
+            <h1>
+
+                {{ producto['nombre'] }}
+
+            </h1>
+
+            <div class="precio">
+
+                ${{ producto['precio'] }}
+
+            </div>
+
+            <div class="descripcion">
+
+                {{ producto['descripcion'] }}
+
+            </div>
+
+            <div class="vendedor">
+                Publicado por:
+
+                <strong>
+                    {{producto['usuario']}}
+                </strong>
+            </div>
+
+            <div class="botones">
+
+                <a
+                href="https://wa.me/57{{ producto['telefono'] }}"
+                class="whatsapp"
+                target="_blank"
+                >
+
+                    Contactar por WhatsApp
+
+                </a>
+
+                <a
+                href="/productos"
+                class="volver"
+                >
+
+                    Volver
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- SCRIPT -->
+
+    <script>
+
+        let imagenes = [];
+
+    </script>
+
+    {% for img in producto['imagenes'] %}
+
+        {% if img != "" %}
+
+        <script>
+
+            imagenes.push(
+                "/static/uploads/{{ img }}"
+            );
+
+        </script>
+
+        {% endif %}
+
+    {% endfor %}
+
+    <script>
+
+        let actual = 0;
+
+        function siguiente(){
+
+            actual++;
+
+            if(actual >= imagenes.length){
+
+                actual = 0;
+            }
+
+            document.getElementById(
+                "imagenActual"
+            ).src = imagenes[actual];
+        }
+
+        function anterior(){
+
+            actual--;
+
+            if(actual < 0){
+
+                actual = imagenes.length - 1;
+            }
+
+            document.getElementById(
+                "imagenActual"
+            ).src = imagenes[actual];
+        }
+
+    </script>
+
+</body>
+
+</html>
